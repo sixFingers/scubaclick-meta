@@ -13,8 +13,18 @@ Install by adding the following to the require block in composer.json:
 
 Then run `composer update`.
 
+Run Migrations
+--------------
+
+```
+php artisan migrate --package="scubaclick/meta"
+
+```
+
 Usage
 -----
+
+Add the trait to all models that you want to attach meta data to:
 
 ```php
 use Illuminate\Database\Eloquent\Model;
@@ -27,12 +37,15 @@ class SomeModel extends Model
 }
 ```
 
+Then use like this:
+
 ```php
 $model = SomeModel::find(1);
 $model->getAllMeta();
 $model->getMeta('some_key');
 $model->updateMeta('some_key', 'New Value');
 $model->deleteMeta('some_key');
+$model->deleteAllMeta();
 $model->addMeta('new_key', ['First Value']);
 $model->appendMeta('new_key', 'Second Value');
 ```

@@ -22,7 +22,6 @@ trait MetaTrait
      */
     public function getMeta($key, $getObj = false)
     {
-
         $meta = $this->meta()
             ->where('key', $key)
             ->get();
@@ -131,6 +130,17 @@ trait MetaTrait
                 ->where('key', $key)
                 ->delete();
         }
+    }
+
+    /**
+     * Deletes all meta data
+     *
+     * @return mixed
+     */
+    public function deleteAllMeta()
+    {
+        return $this->meta()
+            ->delete();
     }
 
     /**
