@@ -1,0 +1,43 @@
+ScubaClick Meta
+===============
+
+Trait and model to attach meta data to Eloquent models.
+
+General Installation
+--------------------
+
+Install by adding the following to the require block in composer.json:
+```
+"scubaclick/meta": "dev-master"
+```
+
+Then run `composer update`.
+
+Usage
+-----
+
+```php
+use Illuminate\Database\Eloquent\Model;
+
+class SomeModel extends Model
+{
+    use \ScubaClick\Meta\MetaTrait;
+
+    // model methods
+}
+```
+
+```php
+$model = SomeModel::find(1);
+$model->getAllMeta();
+$model->getMeta('some_key');
+$model->updateMeta('some_key', 'New Value');
+$model->deleteMeta('some_key');
+$model->addMeta('new_key', ['First Value']);
+$model->appendMeta('new_key', 'Second Value');
+```
+
+License
+-------
+
+ScubaClick Meta is licenced under the MIT license.
