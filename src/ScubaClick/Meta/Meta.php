@@ -101,7 +101,17 @@ class Meta extends Eloquent
      */
     public function getErrors()
     {
-        return $this->errors;
+        return $this->errors instanceof MessageBag ? $this->errors : new MessageBag;
+    }
+
+    /**
+     * Check if a model has been saved
+     *
+     * @return boolean
+     */
+    public function isSaved()
+    {
+        return $this->errors instanceof MessageBag ? false : true;
     }
 
     /**

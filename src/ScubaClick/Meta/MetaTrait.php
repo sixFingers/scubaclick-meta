@@ -56,9 +56,11 @@ trait MetaTrait
         $obj = $this->getEditableItem($meta, $oldValue);
 
         if ($obj !== false) {
-            return $obj->update([
+            $meta = $obj->update([
                 'value' => $newValue
             ]);
+
+            return $meta->isSaved() ? $meta : $meta->getErrors();
         }
     }
 
@@ -78,10 +80,12 @@ trait MetaTrait
             return false;
         }
 
-        return $this->meta()->create([
+        $meta = $this->meta()->create([
             'key'   => $key,
             'value' => $value,
         ]);
+
+        return $meta->isSaved() ? $meta : $meta->getErrors();
     }
 
     /**
@@ -139,8 +143,7 @@ trait MetaTrait
      */
     public function deleteAllMeta()
     {
-        return $this->meta()
-            ->delete();
+        return $this->meta()->delete();
     }
 
     /**
