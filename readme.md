@@ -4,6 +4,10 @@ ScubaClick Meta
 Trait and model to attach meta data to Eloquent models.
 Still being developed for [ScubaClick](http://scubaclick.com), so handle with care for now!
 
+Stable Version
+--------------
+v1.0
+
 General Installation
 --------------------
 
