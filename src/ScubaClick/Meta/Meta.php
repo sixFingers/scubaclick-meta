@@ -1,8 +1,11 @@
 <?php namespace ScubaClick\Meta;
 
+use Validator;
 use ScubaClick\Meta\Helpers;
+use Illuminate\Support\MessageBag;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Meta extends Model
+class Meta extends Eloquent
 {
     /**
      * The database table used by the model.
@@ -29,6 +32,13 @@ class Meta extends Model
     ];
 
     /**
+     * Error message bag
+     * 
+     * @var Illuminate\Support\MessageBag
+     */
+    protected $errors;
+
+    /**
      * Validation rules
      *
      * @var array
@@ -38,10 +48,76 @@ class Meta extends Model
         'metable_type' => 'required',
         'key'          => 'required|max:100',
         'value'        => 'required',
-   ];
+    ];
+
+   /**
+     * Listen for save event
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function($model)
+        {
+            return $model->validate();
+        });
+    }
+
+    /**
+     * Validates current attributes against rules
+     *
+     * @return bool
+     */
+    public function validate()
+    {
+        $validator = Validator::make($this->attributes, static::$rules);
+
+        if ($validator->passes()) {
+            return true;
+        }
+
+        $this->setErrors($validator->messages());
+
+        return false;
+    }
+
+    /**
+     * Set error message bag
+     * 
+     * @var Illuminate\Support\MessageBag
+     * @return void
+     */
+    protected function setErrors(MessageBag $errors)
+    {
+        $this->errors = $errors;
+    }
+
+    /**
+     * Retrieve error message bag
+     *
+     * @return Illuminate\Support\MessageBag
+     */
+    public function getErrors()
+    {
+        return $this->errors instanceof MessageBag ? $this->errors : new MessageBag;
+    }
+
+    /**
+     * Check if a model has been saved
+     *
+     * @return boolean
+     */
+    public function isSaved()
+    {
+        return $this->errors instanceof MessageBag ? false : true;
+    }
 
     /**
      * Connect the models
+     *
+     * @return 
      */
     public function metable()
     {
