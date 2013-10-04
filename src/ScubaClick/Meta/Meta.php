@@ -27,6 +27,8 @@ class Meta extends Eloquent
      * @var array
      */
     protected $fillable = [
+        'metable_id',
+        'metable_type',
         'key',
         'value',
     ];
