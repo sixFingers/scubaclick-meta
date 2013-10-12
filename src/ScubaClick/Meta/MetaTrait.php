@@ -56,11 +56,11 @@ trait MetaTrait
         $obj = $this->getEditableItem($meta, $oldValue);
 
         if ($obj !== false) {
-            $meta = $obj->update([
+            $isSaved = $obj->update([
                 'value' => $newValue
             ]);
 
-            return $meta->isSaved() ? $meta : $meta->getErrors();
+            return $isSaved ? $obj : $obj->getErrors();
         }
     }
 
