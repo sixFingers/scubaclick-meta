@@ -1,11 +1,12 @@
 <?php namespace ScubaClick\Meta;
 
+use Cache;
 use Validator;
 use ScubaClick\Meta\Helpers;
 use Illuminate\Support\MessageBag;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
-class Meta extends Eloquent
+class Meta extends Model
 {
     /**
      * The database table used by the model.
@@ -35,7 +36,7 @@ class Meta extends Eloquent
 
     /**
      * Error message bag
-     * 
+     *
      * @var Illuminate\Support\MessageBag
      */
     protected $errors;
@@ -87,7 +88,7 @@ class Meta extends Eloquent
 
     /**
      * Set error message bag
-     * 
+     *
      * @var Illuminate\Support\MessageBag
      * @return void
      */
@@ -103,7 +104,7 @@ class Meta extends Eloquent
      */
     public function getErrors()
     {
-        return $this->errors instanceof MessageBag ? $this->errors : new MessageBag;
+        return $this->hasErrors() ? $this->errors : new MessageBag;
     }
 
     /**
@@ -113,13 +114,23 @@ class Meta extends Eloquent
      */
     public function isSaved()
     {
-        return $this->errors instanceof MessageBag ? false : true;
+        return $this->hasErrors() ? false : true;
+    }
+
+    /**
+     * Check if there are errors
+     *
+     * @return boolean
+     */
+    public function hasErrors()
+    {
+        return $this->errors instanceof MessageBag;
     }
 
     /**
      * Connect the models
      *
-     * @return 
+     * @return
      */
     public function metable()
     {
