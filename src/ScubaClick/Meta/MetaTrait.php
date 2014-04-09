@@ -26,13 +26,16 @@ trait MetaTrait
             ->where('key', $key)
             ->get();
 
-        if ($getObj) {
+        if ($getObj)
+        {
             $collection = $meta;
-
-        } else {
+        }
+        else
+        {
             $collection = new Collection();
 
-            foreach ($meta as $m) {
+            foreach ($meta as $m)
+            {
                 $collection->put($m->id, $m->value);
             }
         }
@@ -49,18 +52,20 @@ trait MetaTrait
     {
         $meta = $this->getMeta($key, true);
 
-        if ($meta == null) {
+        if ($meta == null)
+        {
             return $this->addMeta($key, $newValue);
         }
 
         $obj = $this->getEditableItem($meta, $oldValue);
 
-        if ($obj !== false) {
-            $meta = $obj->update([
+        if ($obj !== false)
+        {
+            $isSaved = $obj->update([
                 'value' => $newValue
             ]);
 
-            return $meta->isSaved() ? $meta : $meta->getErrors();
+            return $isSaved ? $obj : $obj->getErrors();
         }
     }
 
@@ -76,9 +81,7 @@ trait MetaTrait
             ->where('value', Helpers::maybeEncode($value))
             ->first();
 
-        if ($existing) {
-            return false;
-        }
+        if ($existing) return false;
 
         $meta = $this->meta()->create([
             'key'   => $key,
@@ -98,13 +101,14 @@ trait MetaTrait
     {
         $meta = $this->getMeta($key);
 
-        if(!$meta) {
-            $meta = [];
-        }
+        if(!$meta) $meta = [];
 
-        if(is_array($value)) {
+        if(is_array($value))
+        {
             $meta = array_merge($meta, $value);
-        } else {
+        }
+        else
+        {
             $meta[] = $value;
         }
 
@@ -118,21 +122,19 @@ trait MetaTrait
      */
     public function deleteMeta($key, $value = false)
     {
-        if ($value) {
+        if ($value)
+        {
             $meta = $this->getMeta($key, true);
 
-            if ($meta == null) {
-                return false;
-            }
+            if ($meta == null) return false;
 
             $obj = $this->getEditableItem($meta, $value);
 
             return $obj !== false ? $obj->delete() : false;
-
-        } else {
-            return $this->meta()
-                ->where('key', $key)
-                ->delete();
+        }
+        else
+        {
+            return $this->meta()->where('key', $key)->delete();
         }
     }
 
@@ -153,21 +155,21 @@ trait MetaTrait
      */
     protected function getEditableItem($meta, $value)
     {
-        if ($meta instanceof Collection) {
-            if ($value === false) {
-                return false;
-            }
+        if ($meta instanceof Collection)
+        {
+            if ($value === false) return false;
 
-            $filtered = $meta->filter(function($m) use ($value) {
+            $filtered = $meta->filter(function($m) use ($value)
+            {
                 return $m->value == $value;
             });
 
             $obj = $filtered->first();
 
-            if ($obj == null) {
-                return false;
-            }
-        } else {
+            if ($obj == null) return false;
+        }
+        else
+        {
             $obj = $meta;
         }
 
