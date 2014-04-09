@@ -9,7 +9,8 @@ class Helpers
      */
     public static function maybeDecode($value, $asArray = false)
     {
-        if (!is_string($value)) {
+        if (!is_string($value))
+        {
             return $value;
         }
 
@@ -25,7 +26,8 @@ class Helpers
      */
     public static function maybeEncode($value)
     {
-        if (is_array($value) || is_object($value)) {
+        if (is_array($value) || is_object($value))
+        {
             $value = json_encode($value);
         }
 

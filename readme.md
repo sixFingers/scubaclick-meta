@@ -13,7 +13,7 @@ General Installation
 
 Install by adding the following to the require block in composer.json:
 ```
-"scubaclick/meta": "dev-master"
+"scubaclick/meta": "1.*"
 ```
 
 Then run `composer update`.
