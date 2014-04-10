@@ -23,7 +23,6 @@ Run Migrations
 
 ```
 php artisan migrate --package="scubaclick/meta"
-
 ```
 
 Usage
