@@ -47,6 +47,8 @@ Then use like this:
 $model = SomeModel::find(1);
 $model->getAllMeta();
 $model->getMeta('some_key');
+// You may also specify a default return value
+$model->getMeta('doesnt_exist', 'Default Value');
 $model->updateMeta('some_key', 'New Value');
 $model->deleteMeta('some_key');
 $model->deleteAllMeta();
