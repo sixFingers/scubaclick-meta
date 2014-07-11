@@ -20,7 +20,7 @@ trait MetaTrait
      *
      * @return Illuminate\Support\Collection
      */
-    public function getMeta($key, $getObj = false)
+    public function getMeta($key, $default = null, $getObj = false)
     {
         $meta = $this->meta()
             ->where('key', $key)
@@ -40,6 +40,10 @@ trait MetaTrait
             }
         }
 
+        // Were there no records? Return NULL if no default provided
+        if ($collection->count() == 0)
+            return $default;
+
         return $collection->count() <= 1 ? $collection->first() : $collection;
     }
 
@@ -50,7 +54,7 @@ trait MetaTrait
      */
     public function updateMeta($key, $newValue, $oldValue = false)
     {
-        $meta = $this->getMeta($key, true);
+        $meta = $this->getMeta($key, null, true);
 
         if ($meta == null)
         {
@@ -124,7 +128,7 @@ trait MetaTrait
     {
         if ($value)
         {
-            $meta = $this->getMeta($key, true);
+            $meta = $this->getMeta($key, null, true);
 
             if ($meta == null) return false;
 
