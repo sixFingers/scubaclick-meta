@@ -25,7 +25,7 @@ trait MetaTrait
      */
     public function getMeta($key, $default = null, $getObj = false)
     {
-        $meta = $this->meta()->where('key', $key)->get();
+        $meta = $this->meta()->whereKey($key)->get();
 
         if ($getObj)
         {
@@ -41,9 +41,7 @@ trait MetaTrait
             }
         }
 
-        // Were there no records? Return NULL if no default provided
-        if ($collection->count() == 0)
-            return $default;
+        if ($collection->count() == 0) return $default;
 
         return $collection->count() <= 1 ? $collection->first() : $collection;
     }
@@ -87,8 +85,8 @@ trait MetaTrait
     public function addMeta($key, $value)
     {
         $existing = $this->meta()
-            ->where('key', $key)
-            ->where('value', Helpers::maybeEncode($value))
+            ->whereKey($key)
+            ->whereValue(Helpers::maybeEncode($value))
             ->first();
 
         if ($existing) return false;
@@ -148,7 +146,7 @@ trait MetaTrait
         }
         else
         {
-            return $this->meta()->where('key', $key)->delete();
+            return $this->meta()->whereKey($key)->delete();
         }
     }
 
