@@ -22,9 +22,7 @@ trait MetaTrait
      */
     public function getMeta($key, $getObj = false)
     {
-        $meta = $this->meta()
-            ->where('key', $key)
-            ->get();
+        $meta = $this->meta()->where('key', $key)->get();
 
         if ($getObj)
         {
