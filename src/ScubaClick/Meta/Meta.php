@@ -89,7 +89,7 @@ class Meta extends Model
     /**
      * Set error message bag
      *
-     * @var Illuminate\Support\MessageBag
+     * @param Illuminate\Support\MessageBag $errors
      * @return void
      */
     protected function setErrors(MessageBag $errors)
@@ -140,6 +140,7 @@ class Meta extends Model
     /**
      * Maybe decode a meta value
      *
+     * @param mixed $value
      * @return mixed
      */
     public function getValueAttribute($value)
@@ -150,6 +151,7 @@ class Meta extends Model
     /**
      * Maybe encode a value for saving
      *
+     * @param mixed $value
      * @return null
      */
     public function setValueAttribute($value)

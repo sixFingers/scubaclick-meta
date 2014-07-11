@@ -5,6 +5,8 @@ class Helpers
     /**
      * Checks if a value is json encoded
      *
+     * @param mixed $value
+     * @param boolean $asArray
      * @return mixed
      */
     public static function maybeDecode($value, $asArray = false)
@@ -22,6 +24,7 @@ class Helpers
     /**
      * Checks if a value needs to get json encoded
      *
+     * @param mixed $value
      * @return mixed
      */
     public static function maybeEncode($value)

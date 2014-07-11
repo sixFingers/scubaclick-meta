@@ -18,6 +18,9 @@ trait MetaTrait
     /**
      * Gets meta data
      *
+     * @param string $key
+     * @param mixed $default
+     * @param boolean $getObj
      * @return Illuminate\Support\Collection
      */
     public function getMeta($key, $default = null, $getObj = false)
@@ -48,6 +51,9 @@ trait MetaTrait
     /**
      * Updates meta data
      *
+     * @param string $key
+     * @param mixed $newValue
+     * @param mixed $oldValue
      * @return mixed
      */
     public function updateMeta($key, $newValue, $oldValue = false)
@@ -74,6 +80,8 @@ trait MetaTrait
     /**
      * Adds meta data
      *
+     * @param string $key
+     * @param mixed $value
      * @return mixed
      */
     public function addMeta($key, $value)
@@ -97,6 +105,8 @@ trait MetaTrait
      * Appends a value to an existing meta entry
      * Resets all keys
      *
+     * @param string $key
+     * @param mixed $value
      * @return mixed
      */
     public function appendMeta($key, $value)
@@ -120,6 +130,8 @@ trait MetaTrait
     /**
      * Deletes meta data
      *
+     * @param string $key
+     * @param mixed $value
      * @return mixed
      */
     public function deleteMeta($key, $value = false)
@@ -153,6 +165,8 @@ trait MetaTrait
     /**
      * Gets an item to edit
      *
+     * @param mixed $meta
+     * @param mixed $value
      * @return mixed
      */
     protected function getEditableItem($meta, $value)
