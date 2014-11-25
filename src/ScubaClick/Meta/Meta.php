@@ -13,7 +13,7 @@ class Meta extends Model
      *
      * @var string
      */
-    protected $table = 'meta';
+    protected $table = 'entities_meta';
 
     /**
      * No timestamps for meta data
